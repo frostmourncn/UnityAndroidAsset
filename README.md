@@ -6,7 +6,7 @@ AssetManager of Android java api is not capable, because random access stream wi
 Another feature is AAssetManager can streaming read Assets files.
 
 Codes function:  
-AssestStream: Cross-platform streaming access of StreamingAssets file
+AssestStream: Cross-platform streaming access of StreamingAssets file  
 FileUtil: Cross-platform directly load StreamingAssets file
 
 Test Enviroment:  
