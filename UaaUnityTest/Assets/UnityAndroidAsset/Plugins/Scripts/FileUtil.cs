@@ -1,5 +1,6 @@
-﻿#if UNITY_ANDROID
-using System;
+﻿using System;
+using System.IO;
+using UnityEngine;
 
 namespace UnityAndroidAsset
 {
@@ -9,7 +10,8 @@ namespace UnityAndroidAsset
     public class FileUtil
     {
         // load hole file
-        public static byte[] LoadAndroidAsset(string path)
+#if UNITY_ANDROID
+        public static byte[] LoadStreamingAsset(string path)
         {
             NativeLib.CheckLibInited();
             IntPtr asset = NativeLib.uaa_open(path, (int)NativeLib.AAssetMode.AASSET_MODE_STREAMING);
@@ -21,6 +23,18 @@ namespace UnityAndroidAsset
             NativeLib.uaa_close(asset);
             return data;
         }
+#else
+        public static byte[] LoadStreamingAsset(string path)
+        {
+            path = Path.Combine(Application.streamingAssetsPath, path);
+            if (!File.Exists(path))
+                return null;
+            FileStream fs = new FileStream(path, FileMode.Open);
+            byte[] data = new byte[fs.Length];
+            fs.Read(data, 0, data.Length);
+            fs.Close();
+            return data;
+        }
+#endif
     }
 }
-#endif

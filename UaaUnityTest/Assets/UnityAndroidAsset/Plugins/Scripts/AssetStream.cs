@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-#if UNITY_ANDROID
 namespace UnityAndroidAsset
 {
     /// <summary>
     /// asset stream
     /// </summary>
+#if UNITY_ANDROID
     public class AssetStream : Stream
     {
         public override bool CanRead { get { return true; } }
@@ -76,7 +76,7 @@ namespace UnityAndroidAsset
             return _position;
         }
 
-        #region unimplemented methods
+    #region unimplemented methods
         public override void Flush()
         {
             throw new System.NotImplementedException();
@@ -121,8 +121,16 @@ namespace UnityAndroidAsset
         {
             throw new System.NotImplementedException();
         }
-        #endregion
+    #endregion
     }
+#else
 
-}
+    public class AssetStream : FileStream
+    {
+        public AssetStream(string path) : base(Path.Combine(Application.streamingAssetsPath, path), FileMode.Open)
+        {
+            
+        }
+    }
 #endif
+}

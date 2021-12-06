@@ -17,7 +17,7 @@ public class Test : MonoBehaviour
 
     public void OnButtonLoadFile()
     {
-        byte[] data = FileUtil.LoadAndroidAsset(TEST_FILE);
+        byte[] data = FileUtil.LoadStreamingAsset(TEST_FILE);
         result.text = System.Text.Encoding.ASCII.GetString(data);
     }
 

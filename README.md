@@ -1,16 +1,21 @@
-If you are reading file in StreamingAssets on android platform, you can only use WebRequest api, but other platform you can use File or FileStream etc. This toolkit may help you read files in StreamingAssets synchronously or by stream.
+To read streaming Assets on platforms like Android and WebGL
+, where you cannot access streaming Asset files directly, use UnityWebRequest.
 
-The limitation doc link:
+To avoid this limitation, we can use AAssetManager of Android NDK to access Assets files.
+AssetManager of Android java api is not capable, because random access stream will use a large amount of memory.
+Another feature is AAssetManager can streaming read Assets files.
+
+Codes function:
+AssestStream: Cross-platform streaming access of StreamingAssets file
+FileUtil: Cross-platform directly load StreamingAssets file
+
+Test Enviroment:
+Unity 2019.4
+NDK R19
+
+
+Unity's limitation doc link:
 https://docs.unity3d.com/Manual/StreamingAssets.html
-
-There is another solution, using zip file unpack:
-https://github.com/gwiazdorrr/BetterStreamingAssets
-
-But BetterStreamingAssets is not so capable when using in project by some reasons. This is a more simple way to achive by using AAssetManager of android NDK.
 
 AAssetManager api reference:
 https://developer.android.com/ndk/reference/group/asset
-
-I encapsulation these api and make them easier to use in Unity.
-
-One more thing, android java api of AssetManager is not capable, because random access stream in java will cause large amount of memory use.
